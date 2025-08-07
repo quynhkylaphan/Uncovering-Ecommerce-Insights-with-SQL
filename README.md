@@ -1,7 +1,7 @@
 # Uncovering-Ecommerce-Insights-with-SQL
 
 ## 📖 About The Project
-This project involves a deep dive into the https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce?select=olist_customers_dataset.csv Brazilian E-commerce Public Dataset by Olist. The goal is to use SQL to analyze real-world e-commerce data to answer critical business questions related to sales performance, customer behavior, and operational efficiency. This repository contains the raw data and the SQL scripts used for the analysis.
+This project involves a deep dive into the [Brazilian E-commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce?select=olist_customers_dataset.csv). The goal is to use SQL to analyze real-world e-commerce data to answer critical business questions related to sales performance, customer behavior, and operational efficiency. This repository contains the raw data and the SQL scripts used for the analysis.
 
 ***
 
@@ -39,6 +39,7 @@ JOIN product_category AS pc ON p.product_category_name = pc.product_category_nam
 GROUP BY pc.product_category_name_english
 ORDER BY number_of_orders DESC
 LIMIT 10;
+```
 
 **Results:**
 
