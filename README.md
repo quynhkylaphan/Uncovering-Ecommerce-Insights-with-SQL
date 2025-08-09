@@ -31,7 +31,7 @@ LIMIT 10;
 ```
 
 **Steps:**
-* Use JOIN to connect three tables: order_items (for order data), products (to get the product category name), and product_category (to translate the category name to English).
+* Use JOIN to connect three tables: 'order_items' (for order data), products (to get the product category name), and product_category (to translate the category name to English).
 * Use COUNT(oi.order_id) to count the total number of orders for each category.
 * GROUP BY the English product category name to ensure the count is aggregated correctly for each unique category.
 * ORDER BY the number_of_orders in descending (DESC) order to find the most popular categories, then use LIMIT 10 to restrict the output to the top 10.
@@ -69,15 +69,11 @@ ORDER BY sales_month;
 ```
 
 **Steps:**
-Use strftime('%Y-%m', ...) to extract the year and month from the order_purchase_timestamp to aggregate sales on a monthly basis.
-
-JOIN the orders and order_payments tables on order_id to link sales revenue to the order date.
-
-Use SUM(p.payment_value) to calculate the total revenue for each month.
-
-Include a WHERE o.order_status != 'canceled' clause to exclude canceled orders from the revenue calculation, ensuring data accuracy.
-
-GROUP BY the sales_month to consolidate all sales for that month and ORDER BY the same column to present the results chronologically.
+* Use strftime('%Y-%m', ...) to extract the year and month from the order_purchase_timestamp to aggregate sales on a monthly basis.
+* JOIN the orders and order_payments tables on order_id to link sales revenue to the order date.
+* Use SUM(p.payment_value) to calculate the total revenue for each month.
+* Include a WHERE o.order_status != 'canceled' clause to exclude canceled orders from the revenue calculation, ensuring data accuracy.
+* GROUP BY the sales_month to consolidate all sales for that month and ORDER BY the same column to present the results chronologically.
 
 **Results:**
 
