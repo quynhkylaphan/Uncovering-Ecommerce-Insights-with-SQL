@@ -34,7 +34,7 @@ LIMIT 10;
 * Use **JOIN** to connect three tables: `order_items` (for order data), `products` (to get the product category name), and `product_category` (to translate the category name to English).
 * Use **COUNT(`oi.order_id`)** to count the total number of orders for each category.
 * **GROUP BY** the English product category name to ensure the count is aggregated correctly for each unique category.
-* ORDER BY the `number_of_orders` in descending (**DESC**) order to find the most popular categories, then use **LIMIT 10** to restrict the output to the top 10.
+* **ORDER BY** the `number_of_orders` in descending (**DESC**) order to find the most popular categories, then use **LIMIT 10** to restrict the output to the top 10.
 
 **Results:**
 
@@ -69,11 +69,11 @@ ORDER BY sales_month;
 ```
 
 **Steps:**
-* Use strftime('%Y-%m', ...) to extract the year and month from the order_purchase_timestamp to aggregate sales on a monthly basis.
-* JOIN the orders and order_payments tables on order_id to link sales revenue to the order date.
-* Use SUM(p.payment_value) to calculate the total revenue for each month.
-* Include a WHERE o.order_status != 'canceled' clause to exclude canceled orders from the revenue calculation, ensuring data accuracy.
-* GROUP BY the sales_month to consolidate all sales for that month and ORDER BY the same column to present the results chronologically.
+* Use **strftime('%Y-%m', ...)** to extract the year and month from the `order_purchase_timestamp` to aggregate sales on a monthly basis.
+* **JOIN** the `orders` and `order_payments` tables on `order_id` to link sales revenue to the order date.
+* Use **SUM(`p.payment_value`)** to calculate the total revenue for each month.
+* Include a **WHERE** clause to exclude canceled orders from the revenue calculation.
+* **GROUP BY** the `sales_month` to consolidate all sales for that month and **ORDER BY** the same column to present the results chronologically.
 
 **Results:**
 
@@ -121,6 +121,11 @@ ORDER BY customer_count DESC
 LIMIT 10;
 ```
 
+**Steps:**
+* Use **COUNT(DISTINCT `customer_unique_id`)** to count the number of unique customers. The **DISTINCT** keyword is crucial to avoid counting the same customer multiple times if they have placed more than one order.
+* **GROUP BY** `customer_state` to aggregate the customer counts for each state.
+* **ORDER BY** the `customer_count` descending to find the states with the largest customer bases.
+
 **Results:**
 
 | State | Customer Count |
@@ -166,6 +171,12 @@ FROM CustomerPurchaseTimes
 WHERE second_order_date IS NOT NULL;
 ```
 
+**Steps:**
+* Create a Common Table Expression (CTE) named `RankedOrders`. Inside it, use the **ROW_NUMBER()** window function. The **PARTITION BY** `c.customer_unique_id` clause restarts the ranking for each customer, while **ORDER BY** `o.order_purchase_timestamp` sorts their orders chronologically. This assigns a rank (1, 2, 3...) to each order for every customer.
+* Create a second CTE named `CustomerPurchaseTimes` that pivots the data. It uses conditional aggregation **(MAX(CASE WHEN ...) )** to get the timestamps of the 1st and 2nd orders onto a single row for each customer.
+* In the final query, calculate the difference between the `second_order_date` and `first_order_date` using **strftime('%s', ...)** to convert dates to seconds. Divide by 86400.0 (seconds in a day) to get the duration in days.
+* Use **AVG()** to find the average of these durations, filtering with **WHERE** `second_order_date` **IS NOT NULL** to only include customers who have made at least two purchases.
+
 **Results:**
 
 |    | avg_days_between_purchases |
@@ -201,6 +212,18 @@ FROM DeliveryTimes
 GROUP BY seller_state
 ORDER BY total_orders DESC;
 ```
+**Step:**
+* Create a CTE named `DeliveryTimes` to prepare the data for each order.
+ Inside the CTE, **JOIN** the `orders`, `order_items`, and `sellers` tables to link order timestamps to the seller's state.
+* Calculate two key durations using **strftime('%s', ...)** and division by 86400.0:
+** processing_days: Time from order approval to carrier pickup.
+
+shipping_days: Time from carrier pickup to customer delivery.
+
+In the outer query, GROUP BY seller_state to aggregate the results for each state.
+
+Use AVG() to calculate the average processing_days and shipping_days, and use COUNT(*) to provide context on the order volume from each state.
+
 
 **Results:**
 
