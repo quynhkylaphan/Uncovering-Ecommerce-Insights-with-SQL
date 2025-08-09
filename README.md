@@ -5,26 +5,15 @@ This project involves a deep dive into the [Brazilian E-commerce Public Dataset 
 
 ***
 
-### ❓ Key Business Questions Addressed
-1.  What are the top 10 best-selling product categories?
-2.  What is the overall sales trend by month?
-3.  Which Brazilian states have the most customers?
-4.  What is the average time it takes for a new customer to make their second purchase?
-5.  What is the average processing time versus shipping time, and how does this vary by seller state?
-6.  Which product categories are most frequently purchased together?
-
-***
-
 ### 🛠️ Tools Used
 * **Database:** SQLite
-* **SQL Client:** DB Browser for SQLite / DBeaver
-* **Version Control:** Git & GitHub
+* **SQL Client:** DB Browser for SQLite
 
 ***
 
 ### 📊 SQL Analysis & Findings
 
-#### 1. Top 10 Best-Selling Product Categories
+#### 1. What are the top 10 best-selling product categories?
 This query identifies which product categories generate the most orders, helping the business focus marketing and inventory efforts.
 
 **Finding:** 
@@ -57,7 +46,7 @@ LIMIT 10;
 | 10   | auto                      | 4235             |
 
 
-#### 2. Overall Monthly Sales Trend
+#### 2. What is the overall sales trend by month?
 This query calculates total revenue per month to understand seasonality and growth over time.
 
 **Finding:** 
@@ -103,7 +92,7 @@ ORDER BY sales_month;
 | 2018-09     | 166.46             |
 
 
-#### 3. Customer Distribution by State
+#### 3. Which Brazilian states have the most customers?
 This query identifies the geographic concentration of the customer base.
 
 **Finding:** 
@@ -121,7 +110,21 @@ LIMIT 10;
 
 **Results:**
 
-#### 4. Average Time to Second Purchase
+| State | Customer Count |
+| :---- | :------------- |
+| SP    | 40302          |
+| RJ    | 12384          |
+| MG    | 11259          |
+| RS    | 5277           |
+| PR    | 4882           |
+| SC    | 3534           |
+| BA    | 3277           |
+| DF    | 2075           |
+| ES    | 1964           |
+| GO    | 1952           |
+
+
+#### 4. What is the average time it takes for a new customer to make their second purchase?
 This query analyzes customer retention by calculating how long it takes for a customer to return for a second purchase.
 
 **Finding:** 
@@ -152,7 +155,12 @@ WHERE second_order_date IS NOT NULL;
 
 **Results:**
 
-#### 5. Logistics Funnel: Processing vs. Shipping Time
+|    | avg_days_between_purchases |
+| :--| :------------------------- |
+| 1  | 81.0                       |
+
+
+#### 5. What is the average processing time versus shipping time, and how does this vary by seller state?
 This query breaks down the delivery timeline to see if delays are caused by sellers (processing) or carriers (shipping).
 
 **Finding:** 
@@ -183,8 +191,32 @@ ORDER BY total_orders DESC;
 
 **Results:**
 
+| seller_state | total_orders | avg_processing_days | avg_shipping_days |
+| :----------- | :----------- | :------------------ | :---------------- |
+| SP           | 78585        | 3.0                 | 9.0               |
+| MG           | 8601         | 3.0                 | 10.0              |
+| PR           | 8485         | 3.0                 | 10.0              |
+| RJ           | 4685         | 2.0                 | 9.0               |
+| SC           | 3999         | 3.0                 | 11.0              |
+| RS           | 2169         | 3.0                 | 8.0               |
+| DF           | 883          | 3.0                 | 10.0              |
+| BA           | 624          | 3.0                 | 10.0              |
+| GO           | 508          | 2.0                 | 10.0              |
+| PE           | 445          | 2.0                 | 11.0              |
+| MA           | 402          | 5.0                 | 13.0              |
+| ES           | 364          | 2.0                 | 10.0              |
+| MT           | 144          | 3.0                 | 11.0              |
+| CE           | 90           | 3.0                 | 15.0              |
+| RN           | 56           | 4.0                 | 9.0               |
+| MS           | 50           | 4.0                 | 8.0               |
+| PB           | 37           | 3.0                 | 9.0               |
+| RO           | 14           | 2.0                 | 15.0              |
+| PI           | 11           | 2.0                 | 12.0              |
+| SE           | 10           | 1.0                 | 10.0              |
+| PA           | 8            | 3.0                 | 10.0              |
+| AM           | 3            | 3.0                 | 44.0              |
 
-#### 6. Market Basket Analysis: Products Bought Together
+#### 6. Which product categories are most frequently purchased together?
 This query finds which product categories are most frequently purchased together, which can inform cross-selling and product bundling strategies.
 
 **Finding:** 
@@ -213,6 +245,19 @@ LIMIT 10;
 ```
 
 **Results:**
+
+| Category 1            | Category 2                | Pair Count |
+| :-------------------- | :------------------------ | :--------- |
+| health_beauty         | bed_bath_table            | 213        |
+| furniture_decor       | bed_bath_table            | 206        |
+| housewares            | bed_bath_table            | 188        |
+| sports_leisure        | bed_bath_table            | 149        |
+| computers_accessories | bed_bath_table            | 145        |
+| health_beauty         | furniture_decor           | 112        |
+| watches_gifts         | bed_bath_table            | 109        |
+| housewares            | furniture_decor           | 101        |
+| health_beauty         | sports_leisure            | 98         |
+| computers_accessories | health_beauty             | 97         |
 
 
 ### 🚀 Conclusions & Recommendations
