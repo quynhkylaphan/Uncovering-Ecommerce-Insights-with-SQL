@@ -31,10 +31,10 @@ LIMIT 10;
 ```
 
 **Steps:**
-* Use JOIN to connect three tables: 'order_items' (for order data), products (to get the product category name), and product_category (to translate the category name to English).
-* Use COUNT(oi.order_id) to count the total number of orders for each category.
-* GROUP BY the English product category name to ensure the count is aggregated correctly for each unique category.
-* ORDER BY the number_of_orders in descending (DESC) order to find the most popular categories, then use LIMIT 10 to restrict the output to the top 10.
+* Use **JOIN** to connect three tables: `order_items` (for order data), `products` (to get the product category name), and `product_category` (to translate the category name to English).
+* Use **COUNT(`oi.order_id`)** to count the total number of orders for each category.
+* **GROUP BY** the English product category name to ensure the count is aggregated correctly for each unique category.
+* ORDER BY the `number_of_orders` in descending (**DESC**) order to find the most popular categories, then use **LIMIT 10** to restrict the output to the top 10.
 
 **Results:**
 
