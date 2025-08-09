@@ -216,14 +216,10 @@ ORDER BY total_orders DESC;
 * Create a CTE named `DeliveryTimes` to prepare the data for each order.
  Inside the CTE, **JOIN** the `orders`, `order_items`, and `sellers` tables to link order timestamps to the seller's state.
 * Calculate two key durations using **strftime('%s', ...)** and division by 86400.0:
-** processing_days: Time from order approval to carrier pickup.
-
-shipping_days: Time from carrier pickup to customer delivery.
-
-In the outer query, GROUP BY seller_state to aggregate the results for each state.
-
-Use AVG() to calculate the average processing_days and shipping_days, and use COUNT(*) to provide context on the order volume from each state.
-
+	* `processing_days`: Time from order approval to carrier pickup.
+	* `shipping_days`: Time from carrier pickup to customer delivery.
+* In the outer query, **GROUP BY** `seller_state` to aggregate the results for each state.
+* Use **AVG()** to calculate the average `processing_days` and `shipping_days`, and use **COUNT(*)** to provide context on the order volume from each state.
 
 **Results:**
 
@@ -283,6 +279,14 @@ GROUP BY category_1, category_2
 ORDER BY pair_count DESC
 LIMIT 10;
 ```
+
+**Steps:**
+* Create a CTE named `CategoryPairs`.
+* Inside the CTE, perform a self-join on the `order_items` table. The condition `oi1.order_id = oi2.order_id` finds items in the same order, while `oi1.product_id < oi2.product_id` is a crucial trick to prevent duplicate pairs (like A-B and B-A) and self-pairs (A-A).
+* **JOIN** with the `products` and `product_category` tables twice to get the English names for both items in the pair.
+* In the final query, add a **WHERE** `category_1 <> category_2` clause to filter out pairs from the same category.
+* Use **COUNT(*)** and **GROUP BY** `category_1` and `category_2` to count the occurrences of each unique pair.
+* **ORDER BY** `pair_count` **DESC** to find the most popular combinations.
 
 **Results:**
 
