@@ -30,6 +30,12 @@ ORDER BY number_of_orders DESC
 LIMIT 10;
 ```
 
+**Steps:**
+* Use JOIN to connect three tables: order_items (for order data), products (to get the product category name), and product_category (to translate the category name to English).
+* Use COUNT(oi.order_id) to count the total number of orders for each category.
+* GROUP BY the English product category name to ensure the count is aggregated correctly for each unique category.
+* ORDER BY the number_of_orders in descending (DESC) order to find the most popular categories, then use LIMIT 10 to restrict the output to the top 10.
+
 **Results:**
 
 |      | product_category          | number_of_orders |
@@ -61,6 +67,17 @@ WHERE o.order_status != 'canceled'
 GROUP BY sales_month
 ORDER BY sales_month;
 ```
+
+**Steps:**
+Use strftime('%Y-%m', ...) to extract the year and month from the order_purchase_timestamp to aggregate sales on a monthly basis.
+
+JOIN the orders and order_payments tables on order_id to link sales revenue to the order date.
+
+Use SUM(p.payment_value) to calculate the total revenue for each month.
+
+Include a WHERE o.order_status != 'canceled' clause to exclude canceled orders from the revenue calculation, ensuring data accuracy.
+
+GROUP BY the sales_month to consolidate all sales for that month and ORDER BY the same column to present the results chronologically.
 
 **Results:**
 
@@ -222,23 +239,27 @@ This query finds which product categories are most frequently purchased together
 **Finding:** 
 
 ```sql
-WITH CategoryPairs AS (
-    SELECT
-        oi1.order_id,
-        t1.product_category_name_english AS category_1,
-        t2.product_category_name_english AS category_2
-    FROM order_items AS oi1
-    JOIN order_items AS oi2 ON oi1.order_id = oi2.order_id AND oi1.product_id < oi2.product_id
-    JOIN products AS p1 ON oi1.product_id = p1.product_id
-    JOIN product_category_name_translation AS t1 ON p1.product_category_name = t1.product_category_name
-    JOIN products AS p2 ON oi2.product_id = p2.product_id
-    JOIN product_category_name_translation AS t2 ON p2.product_category_name = t2.product_category_name
+ITH CategoryPairs AS(
+	SELECT
+		oi1.order_id,
+		pc1.product_category_name_english as category_1,
+		pc2.product_category_name_english as category_2
+	FROM order_items as oi1
+	-- Self-join to find item pairs in the same order
+	JOIN order_items AS oi2 ON oi1.order_id = oi2.order_id AND oi1.product_id < oi2.product_id
+	-- Join to get the category name for the first item
+	JOIN products AS p1 ON oi1.product_id = p1.product_id
+	JOIN product_category AS pc1 ON p1.product_category_name = pc1.product_category_name
+	-- Join to get the category name for the second item
+	JOIN products AS p2 ON oi2.product_id = p2.product_id
+	JOIN product_category AS pc2 ON p2.product_category_name = pc2.product_category_name
 )
 SELECT
-    category_1,
-    category_2,
-    COUNT(*) as pair_count
+	category_1,
+	category_2,
+	COUNT(*) AS pair_count
 FROM CategoryPairs
+WHERE category_1 <> category_2
 GROUP BY category_1, category_2
 ORDER BY pair_count DESC
 LIMIT 10;
@@ -248,16 +269,16 @@ LIMIT 10;
 
 | Category 1            | Category 2                | Pair Count |
 | :-------------------- | :------------------------ | :--------- |
-| health_beauty         | bed_bath_table            | 213        |
-| furniture_decor       | bed_bath_table            | 206        |
-| housewares            | bed_bath_table            | 188        |
-| sports_leisure        | bed_bath_table            | 149        |
-| computers_accessories | bed_bath_table            | 145        |
-| health_beauty         | furniture_decor           | 112        |
-| watches_gifts         | bed_bath_table            | 109        |
-| housewares            | furniture_decor           | 101        |
-| health_beauty         | sports_leisure            | 98         |
-| computers_accessories | health_beauty             | 97         |
+| bed_bath_table        | furniture_decor           | 71         |
+| furniture_decor       | bed_bath_table            | 57         |
+| home_confort          | bed_bath_table            | 52         |
+| furniture_decor       | garden_tools              | 39         |
+| housewares            | bed_bath_table            | 27         |
+| baby                  | toys                      | 25         |
+| housewares            | furniture_decor           | 25         |
+| garden_tools          | furniture_decor           | 21         |
+| electronics           | computers_accessories     | 19         |
+| garden_tools          | computers_accessories     | 19         |
 
 
 ### 🚀 Conclusions & Recommendations
