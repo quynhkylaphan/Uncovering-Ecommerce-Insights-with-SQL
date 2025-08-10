@@ -258,15 +258,16 @@ ORDER BY total_orders DESC;
 | PA           | 8            | 3.0                 | 10.0              |
 | AM           | 3            | 3.0                 | 44.0              |
 
+
 **Finding & Recommendation:**
 * Seller processing time is remarkably consistent and efficient across the country, with most states averaging a low 2-3 days to hand an order to a carrier. This indicates that sellers are largely meeting their operational targets.
 * However, shipping time varies dramatically by region. While core states in the Southeast like São Paulo (SP) and Rio de Janeiro (RJ) have efficient shipping times (9 days), states that are further away experience significant delays. The shipping time nearly doubles for states like Ceará (CE) and Rondônia (RO) at 15 days, and balloons to an extreme of 44 days for Amazonas (AM), highlighting that the main cause of delivery delays is the logistics and transportation network, not seller performance.
+
 A tiered approach to carrier management is recommended. For the efficient South and Southeast regions, the current logistics partnerships should be maintained and optimized. For states with moderate delays (10-12 days), the company should renegotiate Service Level Agreements (SLAs) with carriers to improve delivery speeds. For states with severe delays (15+ days), the business should actively seek out and partner with specialized regional carriers that have stronger networks in the North and Northeast. For extreme outliers like Amazonas, establishing a regional distribution hub could be a long-term strategic investment, allowing products to be delivered to a central point before final, faster local delivery.
 
 #### 6. Which product categories are most frequently purchased together?
 This query finds which product categories are most frequently purchased together, which can inform cross-selling and product bundling strategies.
 
-**Finding:** 
 
 ```sql
 ITH CategoryPairs AS(
@@ -319,7 +320,10 @@ LIMIT 10;
 | garden_tools          | computers_accessories     | 19         |
 
 
-### 🚀 Conclusions & Recommendations
+**Finding & Recommendation:**
+* Customers frequently purchase items from `bed_bath_table`, `furniture_decor`, `housewares`, and `garden_tools` together, indicating a "complete the home" shopping behavior.
+* The analysis also identifies other logical pairings, such as `baby` products with `toys` and `electronics` with `computers_accessories`, confirming that customers often shop for related items in a single journey.
 
+The business should implement a "Customers Also Bought" recommendation engine on its product pages; for example, a customer viewing a `bed_bath_table` item should be shown complementary products from `furniture_decor`. Furthermore, the company can create themed product bundles, such as a discounted "New Nursery" package with popular `baby` and `toys` items, or a "Home Makeover" email campaign that showcases products from all the top home-related categories to encourage larger, multi-category purchases.
 
 
