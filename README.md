@@ -14,9 +14,7 @@ This project involves a deep dive into the [Brazilian E-commerce Public Dataset 
 ### 📊 SQL Analysis & Findings
 
 #### 1. What are the top 10 best-selling product categories?
-This query identifies which product categories generate the most orders, helping the business focus marketing and inventory efforts.
-
-**Finding:** 
+This query identifies which product categories generate the most orders, helping the business focus marketing and inventory efforts. 
 
 ```sql
 SELECT
@@ -51,11 +49,11 @@ LIMIT 10;
 | 9    | garden_tools              | 4347             |
 | 10   | auto                      | 4235             |
 
+**Finding & Recommendation:** The analysis reveals that products related to home and personal lifestyle are the primary drivers of sales volume. The `bed_bath_table` category is the clear leader with over 11,000 orders, followed closely by `health_beauty` and `sports_leisure`. The strong performance of these categories, along with others like `furniture_decor` and `housewares`, indicates that the core of the business is centered on items for personal and home use rather than niche or industrial products.
+
 
 #### 2. What is the overall sales trend by month?
 This query calculates total revenue per month to understand seasonality and growth over time.
-
-**Finding:** 
 
 ```sql
 SELECT
@@ -104,12 +102,14 @@ ORDER BY sales_month;
 | 2018-08     | 998504.15          |
 | 2018-09     | 166.46             |
 
+**Finding & Recommendation:** The analysis of monthly revenue reveals two distinct peak sales periods, indicating significant seasonality in customer purchasing behavior.
+* The November Peak: November is consistently the biggest month for sales. This could be explained by big shopping events like Black Friday and the start of the holiday season.
+* The Q2 Surge: A secondary, yet very strong, sales period occurs between March and May. This three-month stretch consistently generates high revenue, suggesting it's another critical time for customer activity.
+Based on the sales data, the business should adopt three strategies to maximize revenue. First, amplify marketing efforts for November, treating it as a flagship "Black November" event to fully capitalize on the year's largest sales spike. Second, create a dedicated campaign for the secondary peak season from March to May, launching promotions tailored to potential drivers like holidays or seasonal changes. Finally, to smooth out revenue flow, the company should stimulate demand during slower months with "off-season" sales and loyalty programs to keep customers engaged year-round.
+
 
 #### 3. Which Brazilian states have the most customers?
 This query identifies the geographic concentration of the customer base.
-
-**Finding:** 
-
 
 ```sql
 SELECT
@@ -141,11 +141,14 @@ LIMIT 10;
 | ES    | 1964           |
 | GO    | 1952           |
 
+**Finding & Recommendation:** The business heavily relies on Brazil's Southeast region.
+* Dominance of São Paulo (SP): The state of São Paulo accounts for over 40,000 customers. This is more than three times the count of the next leading state, demonstrating an exceptional market concentration.
+* The "Big Three" Hub: Together, the three southeastern states of São Paulo (SP), Rio de Janeiro (RJ), and Minas Gerais (MG) form the backbone of the customer base, representing the vast majority of sales opportunities.
+The business should adopt a regionally-focused strategy to both strengthen its core markets and explore new growth. For the dominant states of SP, RJ, and MG, the company should prioritize optimizing logistics, such as exploring partnerships with regional distribution centers to reduce shipping times and costs for the majority of its customers. For the next tier of states like RS and PR, localized marketing campaigns could be launched to increase market share. Finally, the business should investigate why the North and Northeast regions are underrepresented to identify potential barriers to entry and unlock future, untapped markets.
+
 
 #### 4. What is the average time it takes for a new customer to make their second purchase?
 This query analyzes customer retention by calculating how long it takes for a customer to return for a second purchase.
-
-**Finding:** 
 
 ```sql
 WITH RankedOrders AS (
@@ -182,6 +185,8 @@ WHERE second_order_date IS NOT NULL;
 |    | avg_days_between_purchases |
 | :--| :------------------------- |
 | 1  | 81.0                       |
+
+**Finding & Recommendation:** On average, customers who return for a second purchase do so after 81 days. The business should implement a targeted automated re-engagement campaign built around this 81-day cycle.  This strategy should involve sending a personalized email or push notification to first-time buyers around day 70-75, proactively reminding them of the brand and encouraging a second purchase with a compelling offer, such as a discount on items related to their initial order. The goal is to shorten this repurchase cycle and increase the overall rate of repeat customers, directly boosting customer lifetime value.
 
 
 #### 5. What is the average processing time versus shipping time, and how does this vary by seller state?
@@ -247,6 +252,11 @@ ORDER BY total_orders DESC;
 | SE           | 10           | 1.0                 | 10.0              |
 | PA           | 8            | 3.0                 | 10.0              |
 | AM           | 3            | 3.0                 | 44.0              |
+
+**Finding & Recommendation:**
+* Seller processing time is remarkably consistent and efficient across the country, with most states averaging a low 2-3 days to hand an order to a carrier. This indicates that sellers are largely meeting their operational targets.
+* However, shipping time varies dramatically by region. While core states in the Southeast like São Paulo (SP) and Rio de Janeiro (RJ) have efficient shipping times (9 days), states that are further away experience significant delays. The shipping time nearly doubles for states like Ceará (CE) and Rondônia (RO) at 15 days, and balloons to an extreme of 44 days for Amazonas (AM), highlighting that the main cause of delivery delays is the logistics and transportation network, not seller performance.
+A tiered approach to carrier management is recommended. For the efficient South and Southeast regions, the current logistics partnerships should be maintained and optimized. For states with moderate delays (10-12 days), the company should renegotiate Service Level Agreements (SLAs) with carriers to improve delivery speeds. For states with severe delays (15+ days), the business should actively seek out and partner with specialized regional carriers that have stronger networks in the North and Northeast. For extreme outliers like Amazonas, establishing a regional distribution hub could be a long-term strategic investment, allowing products to be delivered to a central point before final, faster local delivery.
 
 #### 6. Which product categories are most frequently purchased together?
 This query finds which product categories are most frequently purchased together, which can inform cross-selling and product bundling strategies.
