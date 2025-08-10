@@ -49,6 +49,7 @@ LIMIT 10;
 | 9    | garden_tools              | 4347             |
 | 10   | auto                      | 4235             |
 
+
 **Finding & Recommendation:** The analysis reveals that products related to home and personal lifestyle are the primary drivers of sales volume. The `bed_bath_table` category is the clear leader with over 11,000 orders, followed closely by `health_beauty` and `sports_leisure`. The strong performance of these categories, along with others like `furniture_decor` and `housewares`, indicates that the core of the business is centered on items for personal and home use rather than niche or industrial products.
 
 
@@ -102,9 +103,11 @@ ORDER BY sales_month;
 | 2018-08     | 998504.15          |
 | 2018-09     | 166.46             |
 
+
 **Finding & Recommendation:** The analysis of monthly revenue reveals two distinct peak sales periods, indicating significant seasonality in customer purchasing behavior.
 * The November Peak: November is consistently the biggest month for sales. This could be explained by big shopping events like Black Friday and the start of the holiday season.
 * The Q2 Surge: A secondary, yet very strong, sales period occurs between March and May. This three-month stretch consistently generates high revenue, suggesting it's another critical time for customer activity.
+
 Based on the sales data, the business should adopt three strategies to maximize revenue. First, amplify marketing efforts for November, treating it as a flagship "Black November" event to fully capitalize on the year's largest sales spike. Second, create a dedicated campaign for the secondary peak season from March to May, launching promotions tailored to potential drivers like holidays or seasonal changes. Finally, to smooth out revenue flow, the company should stimulate demand during slower months with "off-season" sales and loyalty programs to keep customers engaged year-round.
 
 
@@ -141,9 +144,11 @@ LIMIT 10;
 | ES    | 1964           |
 | GO    | 1952           |
 
+
 **Finding & Recommendation:** The business heavily relies on Brazil's Southeast region.
 * Dominance of São Paulo (SP): The state of São Paulo accounts for over 40,000 customers. This is more than three times the count of the next leading state, demonstrating an exceptional market concentration.
 * The "Big Three" Hub: Together, the three southeastern states of São Paulo (SP), Rio de Janeiro (RJ), and Minas Gerais (MG) form the backbone of the customer base, representing the vast majority of sales opportunities.
+
 The business should adopt a regionally-focused strategy to both strengthen its core markets and explore new growth. For the dominant states of SP, RJ, and MG, the company should prioritize optimizing logistics, such as exploring partnerships with regional distribution centers to reduce shipping times and costs for the majority of its customers. For the next tier of states like RS and PR, localized marketing campaigns could be launched to increase market share. Finally, the business should investigate why the North and Northeast regions are underrepresented to identify potential barriers to entry and unlock future, untapped markets.
 
 
