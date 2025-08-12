@@ -216,8 +216,8 @@ WITH DeliveryTimes AS (
 SELECT
     seller_state,
     COUNT(*) as total_orders,
-    AVG(processing_days) as avg_processing_days,
-    AVG(shipping_days) as avg_shipping_days
+    CEIL(AVG(processing_days)) as avg_processing_days,
+    CEIL(AVG(shipping_days)) as avg_shipping_days
 FROM DeliveryTimes
 GROUP BY seller_state
 ORDER BY total_orders DESC;
