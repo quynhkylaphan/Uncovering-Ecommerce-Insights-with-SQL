@@ -270,7 +270,7 @@ This query finds which product categories are most frequently purchased together
 
 
 ```sql
-ITH CategoryPairs AS(
+WITH CategoryPairs AS(
 	SELECT
 		oi1.order_id,
 		pc1.product_category_name_english as category_1,
