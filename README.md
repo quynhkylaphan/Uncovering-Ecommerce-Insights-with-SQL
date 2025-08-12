@@ -174,7 +174,7 @@ CustomerPurchaseTimes AS (
     GROUP BY customer_unique_id
 )
 SELECT
-    AVG((strftime('%s', second_order_date) - strftime('%s', first_order_date)) / 86400.0) as avg_days_between_purchases
+    CEIL(AVG((strftime('%s', second_order_date) - strftime('%s', first_order_date)) / 86400.0)) as avg_days_between_purchases
 FROM CustomerPurchaseTimes
 WHERE second_order_date IS NOT NULL;
 ```
@@ -183,7 +183,7 @@ WHERE second_order_date IS NOT NULL;
 * Create a Common Table Expression (CTE) named `RankedOrders`. Inside it, use the **ROW_NUMBER()** window function. The **PARTITION BY** `c.customer_unique_id` clause restarts the ranking for each customer, while **ORDER BY** `o.order_purchase_timestamp` sorts their orders chronologically. This assigns a rank (1, 2, 3...) to each order for every customer.
 * Create a second CTE named `CustomerPurchaseTimes` that pivots the data. It uses conditional aggregation **(MAX(CASE WHEN ...) )** to get the timestamps of the 1st and 2nd orders onto a single row for each customer.
 * In the final query, calculate the difference between the `second_order_date` and `first_order_date` using **strftime('%s', ...)** to convert dates to seconds. Divide by 86400.0 (seconds in a day) to get the duration in days.
-* Use **AVG()** to find the average of these durations, filtering with **WHERE** `second_order_date` **IS NOT NULL** to only include customers who have made at least two purchases.
+* Use **AVG()** to find the average of these durations, **CEIL()** to round up the average days, filtering with **WHERE** `second_order_date` **IS NOT NULL** to only include customers who have made at least two purchases.
 
 **Results:**
 
