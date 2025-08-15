@@ -31,7 +31,7 @@ LIMIT 10;
 **Steps:**
 * Use **JOIN** to connect three tables: `order_items` (for order data), `products` (to get the product category name), and `product_category` (to translate the category name to English).
 * Use **COUNT(`oi.order_id`)** to count the total number of orders for each category.
-* **GROUP BY** the English product category name to ensure the count is aggregated correctly for each unique category.
+* **GROUP BY** the product category name to ensure the count is aggregated correctly for each unique category.
 * **ORDER BY** the `number_of_orders` in descending (**DESC**) order to find the most popular categories, then use **LIMIT 10** to restrict the output to the top 10.
 
 **Results:**
@@ -50,7 +50,7 @@ LIMIT 10;
 | 10   | auto                      | 4235             |
 
 
-**Finding & Recommendation:** The analysis reveals that products related to home and personal lifestyle are the primary drivers of sales volume. The `bed_bath_table` category is the clear leader with over 11,000 orders, followed closely by `health_beauty` and `sports_leisure`. The strong performance of these categories, along with others like `furniture_decor` and `housewares`, indicates that the core of the business is centered on items for personal and home use rather than niche or industrial products.
+**Finding & Recommendation:** Products related to home and personal lifestyle are the primary drivers of sales volume. The `bed_bath_table` category is the clear leader with over 11,000 orders, followed closely by `health_beauty` and `sports_leisure`. The strong performance of these categories, along with others like `furniture_decor` and `housewares`, indicates that the core of the business is centered on items for personal and home use rather than niche or industrial products.
 
 
 #### 2. What is the overall sales trend by month?
@@ -104,9 +104,9 @@ ORDER BY sales_month;
 | 2018-09     | 166.46             |
 
 
-**Finding & Recommendation:** The analysis of monthly revenue reveals two distinct peak sales periods, indicating significant seasonality in customer purchasing behavior.
+**Finding & Recommendation:** There are two distinct peak sales periods, indicating significant seasonality in customer purchasing behavior.
 * The November Peak: November is consistently the biggest month for sales. This could be explained by big shopping events like Black Friday and the start of the holiday season.
-* The Q2 Surge: A secondary, yet very strong, sales period occurs between March and May. This three-month stretch consistently generates high revenue, suggesting it's another critical time for customer activity.
+* The Q2 Surge: A secondary, yet very strong, sales period occurs between March and May. This three-month stretch consistently generates high revenue.
 
 Based on the sales data, the business should adopt three strategies to maximize revenue. First, amplify marketing efforts for November, treating it as a flagship "Black November" event to fully capitalize on the year's largest sales spike. Second, create a dedicated campaign for the secondary peak season from March to May, launching promotions tailored to potential drivers like holidays or seasonal changes. Finally, to smooth out revenue flow, the company should stimulate demand during slower months with "off-season" sales and loyalty programs to keep customers engaged year-round.
 
@@ -147,7 +147,7 @@ LIMIT 10;
 
 **Finding & Recommendation:** The business heavily relies on Brazil's Southeast region.
 * Dominance of São Paulo (SP): The state of São Paulo accounts for over 40,000 customers. This is more than three times the count of the next leading state, demonstrating an exceptional market concentration.
-* The "Big Three" Hub: Together, the three southeastern states of São Paulo (SP), Rio de Janeiro (RJ), and Minas Gerais (MG) form the backbone of the customer base, representing the vast majority of sales opportunities.
+* The "Big Three" Hub: Together, the three southeastern states of São Paulo (SP), Rio de Janeiro (RJ), and Minas Gerais (MG) form the backbone of the customer base.
 
 The business should adopt a regionally-focused strategy to both strengthen its core markets and explore new growth. For the dominant states of SP, RJ, and MG, the company should prioritize optimizing logistics, such as exploring partnerships with regional distribution centers to reduce shipping times and costs for the majority of its customers. For the next tier of states like RS and PR, localized marketing campaigns could be launched to increase market share. Finally, the business should investigate why the North and Northeast regions are underrepresented to identify potential barriers to entry and unlock future, untapped markets.
 
@@ -260,7 +260,7 @@ ORDER BY total_orders DESC;
 
 
 **Finding & Recommendation:**
-* Seller processing time is remarkably consistent and efficient across the country, with most states averaging a low 2-3 days to hand an order to a carrier. This indicates that sellers are largely meeting their operational targets.
+* Seller processing time is remarkably consistent and efficient across the country, with most states averaging a low 2-3 days to hand an order to a carrier.
 * However, shipping time varies dramatically by region. While core states in the Southeast like São Paulo (SP) and Rio de Janeiro (RJ) have efficient shipping times (9 days), states that are further away experience significant delays. The shipping time nearly doubles for states like Ceará (CE) and Rondônia (RO) at 15 days, and balloons to an extreme of 44 days for Amazonas (AM), highlighting that the main cause of delivery delays is the logistics and transportation network, not seller performance.
 
 A tiered approach to carrier management is recommended. For the efficient South and Southeast regions, the current logistics partnerships should be maintained and optimized. For states with moderate delays (10-12 days), the company should renegotiate Service Level Agreements (SLAs) with carriers to improve delivery speeds. For states with severe delays (15+ days), the business should actively seek out and partner with specialized regional carriers that have stronger networks in the North and Northeast. For extreme outliers like Amazonas, establishing a regional distribution hub could be a long-term strategic investment, allowing products to be delivered to a central point before final, faster local delivery.
@@ -325,5 +325,3 @@ LIMIT 10;
 * The analysis also identifies other logical pairings, such as `baby` products with `toys` and `electronics` with `computers_accessories`, confirming that customers often shop for related items in a single journey.
 
 The business should implement a "Customers Also Bought" recommendation engine on its product pages; for example, a customer viewing a `bed_bath_table` item should be shown complementary products from `furniture_decor`. Furthermore, the company can create themed product bundles, such as a discounted "New Nursery" package with popular `baby` and `toys` items, or a "Home Makeover" email campaign that showcases products from all the top home-related categories to encourage larger, multi-category purchases.
-
-
